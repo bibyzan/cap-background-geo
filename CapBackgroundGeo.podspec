@@ -2,7 +2,7 @@
   Pod::Spec.new do |s|
     s.name = 'CapBackgroundGeo'
     s.version = '0.0.1'
-    s.summary = 'since the rest don't work'
+    s.summary = 'since the rest no work'
     s.license = 'MIT'
     s.homepage = 'https://github.com/bibyzan/cap-background-geo.git'
     s.author = 'bibyzan'
