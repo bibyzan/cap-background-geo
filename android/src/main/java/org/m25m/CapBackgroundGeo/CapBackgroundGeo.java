@@ -1,4 +1,6 @@
-package org.m25m.cap-background-geo;
+package org.m25m.CapBackgroundGeo;
+
+import android.util.Log;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
@@ -15,6 +17,7 @@ public class CapBackgroundGeo extends Plugin {
 
         JSObject ret = new JSObject();
         ret.put("value", value);
+        Log.i("TESTTTTTTTTT", "MEssage");
         call.success(ret);
     }
 }

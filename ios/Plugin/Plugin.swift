@@ -14,7 +14,6 @@ public class CapBackgroundGeo: CAPPlugin, CLLocationManagerDelegate {
         self.manager.delegate = self
         self.manager.pausesLocationUpdatesAutomatically = false
         self.manager.allowsBackgroundLocationUpdates = true
-        
         self.manager.requestWhenInUseAuthorization()
     }
     
@@ -27,8 +26,11 @@ public class CapBackgroundGeo: CAPPlugin, CLLocationManagerDelegate {
     }
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        for loc in locations {
-            print(loc)
+        //for loc in locations {
+            // print(loc)
+        //}
+        if let first = locations.first {
+            self.notifyListeners("geo-update", data: ["lat": first.coordinate.latitude, "lng": first.coordinate.longitude])
         }
     }
     
