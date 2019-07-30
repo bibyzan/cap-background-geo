@@ -9,12 +9,13 @@ import CoreLocation
 @objc(CapBackgroundGeo)
 public class CapBackgroundGeo: CAPPlugin, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
+    private var currentCall: CAPPluginCall? = nil
+    private var isAuthorized = false
     
     override public func load() {
         self.manager.delegate = self
         self.manager.pausesLocationUpdatesAutomatically = false
         self.manager.allowsBackgroundLocationUpdates = true
-        self.manager.requestWhenInUseAuthorization()
     }
     
     @objc func echo(_ call: CAPPluginCall) {
@@ -23,6 +24,24 @@ public class CapBackgroundGeo: CAPPlugin, CLLocationManagerDelegate {
         call.success([
             "value": value
         ])
+    }
+    
+    @objc func start(_ call: CAPPluginCall) {
+        if !self.isAuthorized {
+            self.currentCall = call
+            self.manager.requestWhenInUseAuthorization()
+            print("Requesting when in use")
+        } else {
+            self.manager.startUpdatingLocation()
+            print("started updates!")
+            call.success()
+        }
+    }
+    
+    @objc func stop(_ call: CAPPluginCall) {
+        self.manager.stopUpdatingLocation()
+        print("stopped location updates")
+        call.success()
     }
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -44,14 +63,19 @@ public class CapBackgroundGeo: CAPPlugin, CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("failed")
-        print(error.localizedDescription)
+        print(error)
     }
     
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print("changed auth status")
         print(status)
-        if status == .authorizedWhenInUse {
+        self.isAuthorized = status == .authorizedWhenInUse
+        if status == .authorizedWhenInUse,
+            let call = self.currentCall {
             self.manager.startUpdatingLocation()
+            print("starting location updates")
+            call.success()
+            self.currentCall = nil
         }
     }
 }

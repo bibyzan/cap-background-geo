@@ -13,6 +13,13 @@ export class CapBackgroundGeoWeb extends WebPlugin implements CapBackgroundGeoPl
     console.log('ECHO', options);
     return options;
   }
+
+  async start(): Promise<any> {
+    return Promise.reject('Web not supported');
+  }
+  async stop(): Promise<any> {
+    return Promise.reject('Web not supported');
+  }
 }
 
 const CapBackgroundGeo = new CapBackgroundGeoWeb();
