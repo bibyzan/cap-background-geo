@@ -32,6 +32,14 @@ public class MainActivity extends BridgeActivity {
 }
 ```
 
+Also in `AndroidManifest.xml`
+```
+<service
+    android:name="org.m25m.CapBackgroundGeo.CapBackgroundGeo$BackgroundService"
+    android:enabled="true"
+    android:exported="true">
+</service>
+```
 # Usage/Functionality
 
 ```
