@@ -1,6 +1,6 @@
 {
   "name": "cap-background-geo",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "since the rest don't work",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",

@@ -49,7 +49,9 @@ public class CapBackgroundGeo: CAPPlugin, CLLocationManagerDelegate {
             // print(loc)
         //}
         if let first = locations.first {
-            self.notifyListeners("geo-update", data: ["lat": first.coordinate.latitude, "lng": first.coordinate.longitude])
+            self.notifyListeners("geo-update", data: [
+                "lat": first.coordinate.latitude,
+                "lng": first.coordinate.longitude])
         }
     }
     
